@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import '../models/transaction.dart';
 
 class NewTransactionPage extends StatelessWidget {
   final nameController = TextEditingController();
@@ -7,8 +8,15 @@ class NewTransactionPage extends StatelessWidget {
   final amountController = TextEditingController();
   final priceController = TextEditingController();
 
-  _save() {
-    return null;
+  _save()async  {
+    final transaction = Transaction(
+      name: nameController.text,
+      amount: 100,
+      price: 1600,
+      date: DateTime.now(),
+    );
+    await transaction.create();
+    print(transaction);
   }
 
   _clear() {
