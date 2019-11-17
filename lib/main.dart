@@ -32,14 +32,14 @@ class MyHomePage extends StatelessWidget {
     Transaction(
       id: 'fda321ed',
       name: 'BBDC4',
-      value: 35.50,
+      price: 35.50,
       quantity: 84,
       date: DateTime.now(),
     ),
     Transaction(
       id: 'kakaskakakfdaw2',
       name: 'BIDI4',
-      value: 19.15,
+      price: 19.15,
       quantity: 100,
       date: DateTime.now(),
     )
@@ -77,7 +77,7 @@ class MyHomePage extends StatelessWidget {
                       ),
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        'R\$ ${transaction.value}',
+                        'R\$ ${transaction.price}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
