@@ -1,17 +1,43 @@
+import './crud_model.dart';
 import 'package:flutter/foundation.dart';
 
-class Transaction {
-  final String id;
+class Transaction extends CrudModel {
+  final int id;
   final String name;
-  final double price;
-  final int quantity; 
+  final int price;
+  final int amount; 
   final DateTime date;
 
   Transaction({
-    @required this.id,
+    this.id,
     @required this.name,
     @required this.price,
-    @required this.quantity,
+    @required this.amount,
     @required this.date,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'price': price,
+      'amount': amount,
+      'date': date.toString()
+    };
+  }
+
+  Transaction toEntity(map) {
+    return Transaction(
+      id: map['id'],
+      name: map['name'],
+      price: map['price'],
+      amount: map['amount'],
+      date: map['date']
+    );
+  }
+
+  static index() {
+    return CrudModel.index(Transaction, 'transactions');
+  }
+
 }
