@@ -3,9 +3,12 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import './widgets/new_transaction.dart';
 import './models/transaction.dart';
+import './config/db.dart';
 
-void main() =>
-    initializeDateFormatting('pt_BR', null).then((_) => runApp(MyApp()));
+void main() async {
+  await DB().remove();
+  initializeDateFormatting('pt_BR', null).then((_) => runApp(MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -30,17 +33,17 @@ class MyHomePage extends StatelessWidget {
   MyHomePage({Key key}) : super(key: key);
   final List<Transaction> transactions = [
     Transaction(
-      id: 'fda321ed',
+      id: 1,
       name: 'BBDC4',
-      price: 35.50,
-      quantity: 84,
+      price: 3550,
+      amount: 84,
       date: DateTime.now(),
     ),
     Transaction(
-      id: 'kakaskakakfdaw2',
+      id: 2,
       name: 'BIDI4',
-      price: 19.15,
-      quantity: 100,
+      price: 1915,
+      amount: 100,
       date: DateTime.now(),
     )
   ];
