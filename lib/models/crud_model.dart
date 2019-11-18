@@ -13,14 +13,11 @@ abstract class CrudModel {
   CrudModel({ this.id });
 
   @required dynamic toMap();
-  @required dynamic toEntity(Map<String, dynamic> map);
 
-  static Future<List<CrudModel>> index(model, String table) async {
+  static Future<List<Map<String, dynamic>>> index(String table) async {
     final db = await DB().connect();
     final maps = await db.query(table);
-    return List.generate(maps.length, (i) {
-      return model(maps[i]);
-    });
+    return maps;
   }
 
   Future<void> create() async {
