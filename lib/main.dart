@@ -3,6 +3,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
+import './widgets/gains_carousel.dart';
 import './config/db.dart';
 
 void main() async {
@@ -39,13 +40,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(
-            width: double.infinity,
-            child: Card(
-              child: Text('Placeholder'),
-              elevation: 5,
-            ),
-          ),
+          GainsCarousel(),
           TransactionList(),
         ],
       ),
