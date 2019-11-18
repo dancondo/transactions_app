@@ -42,4 +42,11 @@ class Transaction extends CrudModel {
       return Transaction.toEntity(maps[i]);
     });
   }
+
+  static Future<double> totalValue() async {
+    final transactions = await Transaction.index();
+    return transactions.map((transaction) {
+      return transaction.price * transaction.amount;
+    }).reduce((a, b) => a + b);
+  }
 }
