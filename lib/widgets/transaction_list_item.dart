@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
@@ -8,6 +9,10 @@ class TransactionListItem extends StatelessWidget {
   final Transaction transaction; 
 
   TransactionListItem(this.transaction);
+
+  get price {
+    return MoneyMaskedTextController(initialValue: double.parse(transaction.price.toString()), leftSymbol: 'R\$ ');
+  }
 
   @override
   build(BuildContext context) {
@@ -27,7 +32,7 @@ class TransactionListItem extends StatelessWidget {
             ),
             padding: EdgeInsets.all(10),
             child: Text(
-              'R\$ ${transaction.price}',
+              price.text,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,

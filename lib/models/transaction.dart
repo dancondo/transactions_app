@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 class Transaction extends CrudModel {
   final int id;
   final String name;
-  final int price;
+  final double price;
   final int amount;
   final DateTime date;
 
@@ -19,8 +19,8 @@ class Transaction extends CrudModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': name.toUpperCase(),
-      'price': price,
+      'name': name,
+      'price': price * 100,
       'amount': amount,
       'date': date.toString()
     };
@@ -30,7 +30,7 @@ class Transaction extends CrudModel {
     return Transaction(
       id: map['id'],
       name: map['name'],
-      price: map['price'],
+      price: map['price'] / 100,
       amount: map['amount'],
       date: DateTime.parse(map['date']),
     );

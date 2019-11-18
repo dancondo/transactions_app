@@ -1,26 +1,31 @@
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../models/transaction.dart';
 
-class NewTransactionPage extends StatelessWidget {
-  final nameController = TextEditingController();
-  final dateController = TextEditingController();
-  final amountController = TextEditingController();
-  final priceController = TextEditingController();
+class NewTransactionPage extends StatefulWidget {
+  @override
+  _NewTransactionPageState createState() => _NewTransactionPageState();
+}
 
-  _save(context)async  {
+class _NewTransactionPageState extends State<NewTransactionPage> {
+  final nameController = TextEditingController();
+
+  final dateController = TextEditingController();
+
+  final amountController = TextEditingController();
+
+  final priceController = MoneyMaskedTextController();
+
+  void _save(context) async {
     final transaction = Transaction(
-      name: nameController.text,
+      name: nameController.text.toUpperCase(),
       amount: int.parse(amountController.text),
-      price: int.parse(priceController.text),
+      price: priceController.numberValue,
       date: DateTime.now(),
     );
     await transaction.create();
     Navigator.pushNamed(context, '/');
-  }
-
-  _clear() {
-    return null;
   }
 
   @override
@@ -38,6 +43,7 @@ class NewTransactionPage extends StatelessWidget {
                 labelText: 'Ativo',
               ),
               controller: nameController,
+              keyboardType: TextInputType.text,
             ),
             TextField(
               decoration: InputDecoration(
@@ -62,10 +68,6 @@ class NewTransactionPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                RaisedButton(
-                  child: Text('Limpar'),
-                  onPressed: _clear,
-                ),
                 RaisedButton(
                   child: Text('Enviar'),
                   onPressed: () => _save(context),
