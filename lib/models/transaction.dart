@@ -5,7 +5,7 @@ class Transaction extends CrudModel {
   final int id;
   final String name;
   final int price;
-  final int amount; 
+  final int amount;
   final DateTime date;
 
   Transaction({
@@ -19,25 +19,27 @@ class Transaction extends CrudModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': name,
+      'name': name.toUpperCase(),
       'price': price,
       'amount': amount,
       'date': date.toString()
     };
   }
 
-  Transaction toEntity(map) {
+  static toEntity(map) {
     return Transaction(
       id: map['id'],
       name: map['name'],
       price: map['price'],
       amount: map['amount'],
-      date: map['date']
+      date: DateTime.parse(map['date']),
     );
   }
 
-  static index() {
-    return CrudModel.index(Transaction, 'transactions');
+  static Future<List<Transaction>> index() async {
+    final maps = await CrudModel.index('transactions');
+    return List.generate(maps.length, (i) {
+      return Transaction.toEntity(maps[i]);
+    });
   }
-
 }
