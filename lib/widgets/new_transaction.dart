@@ -8,15 +8,15 @@ class NewTransactionPage extends StatelessWidget {
   final amountController = TextEditingController();
   final priceController = TextEditingController();
 
-  _save()async  {
+  _save(context)async  {
     final transaction = Transaction(
       name: nameController.text,
-      amount: 100,
-      price: 1600,
+      amount: int.parse(amountController.text),
+      price: int.parse(priceController.text),
       date: DateTime.now(),
     );
     await transaction.create();
-    print(transaction);
+    Navigator.pushNamed(context, '/');
   }
 
   _clear() {
@@ -49,12 +49,14 @@ class NewTransactionPage extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: 'Quantidade',
               ),
+              keyboardType: TextInputType.number,
               controller: amountController,
             ),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Preço Unitário',
               ),
+              keyboardType: TextInputType.number,
               controller: priceController,
             ),
             Row(
@@ -66,7 +68,7 @@ class NewTransactionPage extends StatelessWidget {
                 ),
                 RaisedButton(
                   child: Text('Enviar'),
-                  onPressed: _save,
+                  onPressed: () => _save(context),
                   color: Colors.orange,
                 ),
               ],
