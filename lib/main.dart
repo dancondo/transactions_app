@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
-import './models/transaction.dart';
 import './config/db.dart';
 
 void main() async {
@@ -31,22 +31,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key key}) : super(key: key);
-  final List<Transaction> transactions = [
-    Transaction(
-      id: 1,
-      name: 'BBDC4',
-      price: 3550,
-      amount: 84,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 2,
-      name: 'BIDI4',
-      price: 1915,
-      amount: 100,
-      date: DateTime.now(),
-    )
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,53 +46,7 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ),
           ),
-          Column(
-            children: transactions.map((transaction) {
-              return Card(
-                child: Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 15,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.orange,
-                          width: 2,
-                        ),
-                      ),
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        'R\$ ${transaction.price}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.orange,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          transaction.name,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          new DateFormat.yMd().format(transaction.date),
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          )
+          TransactionList(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
