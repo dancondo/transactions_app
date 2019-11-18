@@ -15,7 +15,7 @@ class DB {
       join(await getDatabasesPath(), 'transactions_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE transactions(id INTEGER PRIMARY_KEY, name TEXT, price INTEGER, amount INTEGER, date TEXT)"
+          "CREATE TABLE transactions(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, price INTEGER, amount INTEGER, date TEXT)"
         );
       },
       version: 3
